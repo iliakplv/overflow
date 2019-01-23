@@ -3,7 +3,7 @@ Data Science with Stack Overflow 2018 Developer Survey [data](https://www.kaggle
 
 ----
 
-Use two separate `venv` environments:
+This project requires two separate environments:
 
 **Python 3.6** for [pandas](https://pandas.pydata.org/) 
 

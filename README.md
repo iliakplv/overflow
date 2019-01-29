@@ -3,17 +3,15 @@ Data Science with Stack Overflow 2018 Developer Survey [data](https://www.kaggle
 
 ----
 
-This project requires two separate environments:
+This project uses two separate environments and sets of dependencies:
 
-**Python 3.6** for [pandas](https://pandas.pydata.org/) 
+**Python 3.6** for data analysis and ML experiments
 
-Dependencies: `pip install -r requirements_3.txt`
+`pip install -r requirements/analysis.txt`
 
-Experiments: [analysis.ipynb](https://github.com/iliakplv/overflow/blob/master/analysis.ipynb)
+`pip install -r requirements/model.txt`
 
 
-**Python 2.7** for [TFDV](https://github.com/tensorflow/data-validation)
+**Python 2.7** for [TFDV](https://github.com/tensorflow/data-validation) experiments
 
-Dependencies: `pip install -r requirements_27.txt`
-
-Experiments: [tfdv.ipynb](https://github.com/iliakplv/overflow/blob/master/tfdv.ipynb)
+`pip install -r requirements/tfdv.txt`

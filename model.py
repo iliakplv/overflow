@@ -13,6 +13,7 @@ dataset_file = data_path + 'so_survey_results_public.csv'
 train_file = data_path + 'train.csv'
 eval_file = data_path + 'eval.csv'
 test_file = data_path + 'test.csv'
+model_path = './model/'
 
 # |       train      |  eval |  test |
 # |       80%        |  10%  |  10%  |
@@ -20,6 +21,15 @@ train_size = 0.8  # of the whole data
 eval_size = 0.5  # of eval+test data
 
 data = {}
+
+
+def analyse_data(df):
+    print('Data analysis:')
+    for feature in feature_names:
+        unique_values = df[feature].nunique()
+        print('{}: {}'.format(feature, unique_values))
+    unique_values = df[target].nunique()
+    print('{}: {}'.format(target, unique_values))
 
 
 def init_data(train_df, eval_df, test_df):
@@ -49,6 +59,8 @@ def preprocess_data(overwrite=False):
     df.fillna(feature_defaults, inplace=True)
 
     print('Filtered dataset size: {}'.format(len(df)))
+
+    analyse_data(df)
 
     # train/eval/test split
     eval_test_size = 1.0 - train_size
@@ -81,5 +93,27 @@ def input_fn(dataset_key):
     )
 
 
+def train_evaluate():
+    # next_batch = input_fn('train')
+
+    # feature_columns = [tf.feature_column.categorical_column_with_identity(k) for k in feature_names]
+    # feature_columns = [tf.feature_column.categorical_column_with_vocabulary_list(k) for k in feature_names]
+
+    classifier = tf.estimator.DNNClassifier(
+        feature_columns=feature_columns,
+        hidden_units=[10, 10],
+        n_classes=3,
+        model_dir=model_path)
+
+    classifier.train(input_fn=lambda: input_fn('train'))
+
+    # evaluate_result = classifier.evaluate(input_fn=lambda: input_fn('eval'))
+    #
+    # print('Evaluation results')
+    # for key in evaluate_result:
+    #     print('  {}, was: {}'.format(key, evaluate_result[key]))
+
+
 if __name__ == '__main__':
     preprocess_data()
+    # train_evaluate()

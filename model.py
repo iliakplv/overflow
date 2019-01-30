@@ -1,37 +1,19 @@
-import tensorflow as tf
 import pandas as pd
+import tensorflow as tf
 
-from schema import target
+from schema import feature_defaults
 from schema import feature_names
-from schema import record_defaults
+from schema import target
 
 dataset_file = './data/so_survey_results_public.csv'
 
 
-def input_fn(perform_shuffle=False, repeat_count=1, batch_size=32):
-    def decode_csv(line):
-        # TODO features and target
-        parsed_line = tf.decode_csv(line, record_defaults)
-        label = parsed_line[-1:]
-        del parsed_line[-1]
-        features = parsed_line
-        d = dict(zip(feature_names, features)), label
-        return d
-
-    dataset = (tf.data.TextLineDataset(dataset_file)
-               .skip(1)  # skip header
-               .map(decode_csv, num_parallel_calls=4))
-    if perform_shuffle:
-        dataset = dataset.shuffle(buffer_size=256)
-    dataset = dataset.repeat(repeat_count)
-    dataset = dataset.batch(batch_size)
-    iterator = dataset.make_one_shot_iterator()
-    batch_features, batch_labels = iterator.get_next()
-    return batch_features, batch_labels
-
-
-def input_fn_pandas():
+def input_fn():
     df = pd.read_csv(dataset_file)
+
+    df.dropna(subset=[target], inplace=True)
+    df.fillna(feature_defaults, inplace=True)
+
     x = df[feature_names]
     y = df[target]
 
@@ -40,8 +22,12 @@ def input_fn_pandas():
         y,
         batch_size=32,
         num_epochs=1,
-        shuffle=None,
+        shuffle=False,
         queue_capacity=1000,
         num_threads=4,
         target_column=target
     )
+
+
+if __name__ == '__main__':
+    input_fn()

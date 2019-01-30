@@ -1,15 +1,14 @@
 import tensorflow as tf
 import pandas as pd
 
+from schema import target
+from schema import feature_names
+from schema import record_defaults
+
 dataset_file = './data/so_survey_results_public.csv'
 
-# TODO
-feature_names = ['Hobby', 'OpenSource', 'Country']
-record_defaults = [['No'], ['No']]
-target = ''
 
-
-def input_fn(file_path, perform_shuffle=False, repeat_count=1, batch_size=32):
+def input_fn(perform_shuffle=False, repeat_count=1, batch_size=32):
     def decode_csv(line):
         # TODO features and target
         parsed_line = tf.decode_csv(line, record_defaults)
@@ -19,7 +18,7 @@ def input_fn(file_path, perform_shuffle=False, repeat_count=1, batch_size=32):
         d = dict(zip(feature_names, features)), label
         return d
 
-    dataset = (tf.data.TextLineDataset(file_path)
+    dataset = (tf.data.TextLineDataset(dataset_file)
                .skip(1)  # skip header
                .map(decode_csv, num_parallel_calls=4))
     if perform_shuffle:

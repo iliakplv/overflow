@@ -27,6 +27,8 @@ Data Science with Stack Overflow 2018 Developer Survey data
 
 ## Machine Learning
 
+**Python 3.6**
+
 1. Install dependencies: `pip install -r requirements/model.txt`
 
 2. Generate schema and preprocess the data by running `python data.py`

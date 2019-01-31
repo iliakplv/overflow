@@ -5,7 +5,7 @@ import data
 
 model_dir = './model/'
 
-pandas_input_fn = True
+pandas_input_fn = False
 
 batch_size = 32
 epochs = 1
@@ -13,14 +13,11 @@ shuffle_data = False
 
 
 def input_fn_dataset(df):
-    dataset = (
-        tf.data.Dataset.from_tensor_slices(
-            (
-                tf.cast(df[data.get_feature_names()].values, tf.string),
-                tf.cast(df[data.get_target_name()].values, tf.string)
-            )
-        )
-    )
+    features = df[data.get_feature_names()]
+    labels = df[data.get_target_name()]
+
+    dataset = tf.data.Dataset.from_tensor_slices((dict(features), labels))
+
     if shuffle_data:
         dataset = dataset.shuffle(buffer_size=256)
     dataset = dataset.repeat(epochs)
@@ -33,6 +30,7 @@ def input_fn_dataset(df):
 def input_fn_pandas(df):
     x = df[data.get_feature_names()]
     y = df[data.get_target_name()]
+
     return tf.estimator.inputs.pandas_input_fn(
         x,
         y,

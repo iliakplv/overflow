@@ -110,6 +110,9 @@ venv.bak/
 # PyCharm
 .idea/
 
+# schema
+schema/schema-full.json
+
 # data
 data/
 

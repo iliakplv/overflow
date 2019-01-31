@@ -18,10 +18,7 @@ train_file = data_dir + 'train.csv'
 eval_file = data_dir + 'eval.csv'
 test_file = data_dir + 'test.csv'
 
-# target, features:name/default_value/unique_values
 schema = {}
-
-# train/eval/test
 data = {}
 
 

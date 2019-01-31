@@ -22,11 +22,11 @@
     },
     {
       "name": "UndergradMajor",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "CompanySize",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "YearsCoding",
@@ -46,31 +46,31 @@
     },
     {
       "name": "WakeTime",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "HoursComputer",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "HoursOutside",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "SkipMeals",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "Exercise",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "Age",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     },
     {
       "name": "Dependents",
-      "default_value": "N/A"
+      "default_value": "na_placeholder"
     }
   ],
   "target": {

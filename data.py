@@ -36,6 +36,7 @@ def preprocess():
     df = pd.read_csv(dataset_file)
     print('Original dataset size: {}'.format(len(df)))
 
+    df = df[feature_names + [target_name]]
     df.dropna(subset=[target_name], inplace=True)
     df.fillna(feature_defaults, inplace=True)
     print('Filtered dataset size: {}'.format(len(df)))

@@ -1,3 +1,4 @@
+import time
 import tensorflow as tf
 
 import data
@@ -21,6 +22,12 @@ def create_input_fn(df):
     )
 
 
+def print_result(result):
+    print('Evaluation result:')
+    for k, v in result.items():
+        print('\t{}: {}'.format(k, v))
+
+
 def train_evaluate():
     feature_names = data.get_feature_names()
     feature_columns = [
@@ -33,11 +40,15 @@ def train_evaluate():
                                                n_classes=len(data.get_target_values()),
                                                label_vocabulary=data.get_target_values())
 
+    print('Training...')
+    train_start = time.time()
     classifier.train(create_input_fn(data.get_train_data()))
+    train_end = time.time()
+    print('Training completed in {} seconds'.format(train_end - train_start))
 
+    print('Evaluating...')
     result = classifier.evaluate(create_input_fn(data.get_eval_data()))
-
-    print(result)
+    print_result(result)
 
 
 if __name__ == '__main__':

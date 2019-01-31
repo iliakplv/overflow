@@ -35,7 +35,7 @@ def train_evaluate():
 
     classifier.train(create_input_fn(data.get_train_data()))
 
-    result = classifier.evaluate(data.get_eval_data())
+    result = classifier.evaluate(create_input_fn(data.get_eval_data()))
 
     print(result)
 

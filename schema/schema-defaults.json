@@ -1,0 +1,79 @@
+{
+  "features": [
+    {
+      "name": "Hobby",
+      "default_value": "No"
+    },
+    {
+      "name": "OpenSource",
+      "default_value": "No"
+    },
+    {
+      "name": "Student",
+      "default_value": "No"
+    },
+    {
+      "name": "Employment",
+      "default_value": "Employed full-time"
+    },
+    {
+      "name": "FormalEducation",
+      "default_value": "Bachelor’s degree (BA, BS, B.Eng., etc.)"
+    },
+    {
+      "name": "UndergradMajor",
+      "default_value": "N/A"
+    },
+    {
+      "name": "CompanySize",
+      "default_value": "N/A"
+    },
+    {
+      "name": "YearsCoding",
+      "default_value": "3-5 years"
+    },
+    {
+      "name": "YearsCodingProf",
+      "default_value": "3-5 years"
+    },
+    {
+      "name": "JobSearchStatus",
+      "default_value": "I’m not actively looking, but I am open to new opportunities"
+    },
+    {
+      "name": "LastNewJob",
+      "default_value": "Less than a year ago"
+    },
+    {
+      "name": "WakeTime",
+      "default_value": "N/A"
+    },
+    {
+      "name": "HoursComputer",
+      "default_value": "N/A"
+    },
+    {
+      "name": "HoursOutside",
+      "default_value": "N/A"
+    },
+    {
+      "name": "SkipMeals",
+      "default_value": "N/A"
+    },
+    {
+      "name": "Exercise",
+      "default_value": "N/A"
+    },
+    {
+      "name": "Age",
+      "default_value": "N/A"
+    },
+    {
+      "name": "Dependents",
+      "default_value": "N/A"
+    }
+  ],
+  "target": {
+    "name": "CareerSatisfaction"
+  }
+}

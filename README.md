@@ -1,17 +1,34 @@
 # overflow
-Data Science with Stack Overflow 2018 Developer Survey [data](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey)
+Data Science with Stack Overflow 2018 Developer Survey data
 
-----
+## Get the data
 
-This project uses two separate environments and sets of dependencies:
+1. [Download](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey)
 
-**Python 3.6** for data analysis and ML experiments
+2. Unpack `so_survey_results_public.csv` into `data/` directory
 
-`pip install -r requirements/analysis.txt`
+## Data Analysis
 
-`pip install -r requirements/model.txt`
+**Python 3.6** for [pandas](https://pandas.pydata.org/)
 
+1. Install dependencies: `pip install -r requirements/analysis.txt`
+
+2. Run Jupyter notebook: `jupyter notebook`
+
+3. Play with `analysis.ipynb`
 
 **Python 2.7** for [TFDV](https://github.com/tensorflow/data-validation) experiments
 
-`pip install -r requirements/tfdv.txt`
+1. Install dependencies: `pip install -r requirements/tfdv.txt`
+
+2. Run Jupyter notebook: `jupyter notebook`
+
+3. Play with `tfdv.ipynb`
+
+## Machine Learning
+
+1. Install dependencies: `pip install -r requirements/model.txt`
+
+2. Generate schema and preprocess the data by running `python data.py`
+
+3. Train and evaluate the model by running `python model.py`

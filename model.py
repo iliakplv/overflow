@@ -2,12 +2,12 @@ import tensorflow as tf
 
 import data
 
+model_dir = './model/'
 
-def input_fn(dataset_key):
-    df = data[dataset_key]
 
-    x = df[feature_names]
-    y = df[target]
+def create_input_fn(df):
+    x = df[data.get_feature_names()]
+    y = df[data.get_target_name()]
 
     return tf.estimator.inputs.pandas_input_fn(
         x,
@@ -17,30 +17,29 @@ def input_fn(dataset_key):
         shuffle=False,
         queue_capacity=1000,
         num_threads=4,
-        target_column=target
+        target_column=data.get_target_name()
     )
 
 
 def train_evaluate():
-    # next_batch = input_fn('train')
+    feature_names = data.get_feature_names()
+    feature_columns = [
+        tf.feature_column.categorical_column_with_vocabulary_list(name, data.get_feature_values(name))
+        for name in feature_names
+    ]
 
-    # feature_columns = [tf.feature_column.categorical_column_with_identity(k) for k in feature_names]
-    # feature_columns = [tf.feature_column.categorical_column_with_vocabulary_list(k) for k in feature_names]
+    classifier = tf.estimator.LinearClassifier(feature_columns=feature_columns,
+                                               model_dir=model_dir,
+                                               n_classes=len(data.get_target_values()),
+                                               label_vocabulary=data.get_target_values())
 
-    classifier = tf.estimator.DNNClassifier(
-        feature_columns=feature_columns,
-        hidden_units=[10, 10],
-        n_classes=3,
-        model_dir=model_path)
+    classifier.train(create_input_fn(data.get_train_data()))
 
-    classifier.train(input_fn=lambda: input_fn('train'))
+    result = classifier.evaluate(data.get_eval_data())
 
-    # evaluate_result = classifier.evaluate(input_fn=lambda: input_fn('eval'))
-    #
-    # print('Evaluation results')
-    # for key in evaluate_result:
-    #     print('  {}, was: {}'.format(key, evaluate_result[key]))
+    print(result)
 
 
 if __name__ == '__main__':
-    pass
+    data.load(load_test=False)
+    train_evaluate()

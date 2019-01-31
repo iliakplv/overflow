@@ -8,15 +8,15 @@ from sklearn.model_selection import train_test_split
 train_size = 0.8  # of the whole data
 eval_size = 0.5  # of eval+test data
 
-schema_path = './schema/'
-schema_defaults_file = schema_path + 'schema-defaults.json'
-schema_full_file = schema_path + 'schema-full.json'
+schema_dir = './schema/'
+schema_defaults_file = schema_dir + 'schema-defaults.json'
+schema_full_file = schema_dir + 'schema-full.json'
 
-data_path = './data/'
-dataset_file = data_path + 'so_survey_results_public.csv'
-train_file = data_path + 'train.csv'
-eval_file = data_path + 'eval.csv'
-test_file = data_path + 'test.csv'
+data_dir = './data/'
+dataset_file = data_dir + 'so_survey_results_public.csv'
+train_file = data_dir + 'train.csv'
+eval_file = data_dir + 'eval.csv'
+test_file = data_dir + 'test.csv'
 
 # target, features:name/default_value/unique_values
 schema = {}
@@ -116,8 +116,10 @@ def get_feature_names():
 
 
 def get_feature_values(feature_name):
-    feature = schema['features'][feature_name]
-    return [value for value in feature['values']]
+    for feature in schema['features']:
+        if feature['name'] == feature_name:
+            return [value for value in feature['values']]
+    raise Exception('Feature {} not found'.format(feature_name))
 
 
 if __name__ == '__main__':

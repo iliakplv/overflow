@@ -5,21 +5,51 @@ import data
 
 model_dir = './model/'
 
+pandas_input_fn = True
 
-def create_input_fn(df):
+batch_size = 32
+epochs = 1
+shuffle_data = False
+
+
+def input_fn_dataset(df):
+    dataset = (
+        tf.data.Dataset.from_tensor_slices(
+            (
+                tf.cast(df[data.get_feature_names()].values, tf.string),
+                tf.cast(df[data.get_target_name()].values, tf.string)
+            )
+        )
+    )
+    if shuffle_data:
+        dataset = dataset.shuffle(buffer_size=256)
+    dataset = dataset.repeat(epochs)
+    dataset = dataset.batch(batch_size)
+    iterator = dataset.make_one_shot_iterator()
+    batch_features, batch_labels = iterator.get_next()
+    return batch_features, batch_labels
+
+
+def input_fn_pandas(df):
     x = df[data.get_feature_names()]
     y = df[data.get_target_name()]
-
     return tf.estimator.inputs.pandas_input_fn(
         x,
         y,
-        batch_size=32,
-        num_epochs=1,
-        shuffle=False,
+        batch_size=batch_size,
+        num_epochs=epochs,
+        shuffle=shuffle_data,
         queue_capacity=1000,
         num_threads=4,
         target_column=data.get_target_name()
     )
+
+
+def get_input_fn(df):
+    if pandas_input_fn:
+        return input_fn_pandas(df)
+    else:
+        return lambda: input_fn_dataset(df)
 
 
 def print_result(result):
@@ -42,12 +72,12 @@ def train_evaluate():
 
     print('Training...')
     train_start = time.time()
-    classifier.train(create_input_fn(data.get_train_data()))
+    classifier.train(get_input_fn(data.get_train_data()))
     train_end = time.time()
     print('Training completed in {} seconds'.format(train_end - train_start))
 
     print('Evaluating...')
-    result = classifier.evaluate(create_input_fn(data.get_eval_data()))
+    result = classifier.evaluate(get_input_fn(data.get_eval_data()))
     print_result(result)
 
 

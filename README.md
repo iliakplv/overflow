@@ -37,6 +37,8 @@ Data Science with Stack Overflow 2018 Developer Survey data
 
 ## To-do
 
-- Reframe the classification problem (current set of features don't seem to predict the current target)
+- Reframe the classification problem (current set of features doesn't seem to predict current target)
 
-- Use TFDV for the data split (train/eval/test)
+- Inspect current data split (train/eval/test) with TFDV
+
+- Make a training/evaluation demo (ipynb)

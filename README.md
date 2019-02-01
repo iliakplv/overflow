@@ -5,11 +5,11 @@ Data Science with Stack Overflow 2018 Developer Survey data
 
 1. [Download](https://www.kaggle.com/stackoverflow/stack-overflow-2018-developer-survey)
 
-2. Unpack `so_survey_results_public.csv` into `data/` directory
+2. Create `data` directory and put `so_survey_results_public.csv` in it
 
 ## Data Analysis
 
-**Python 3.6** for [pandas](https://pandas.pydata.org/)
+**Python 3.6** for [pandas](https://pandas.pydata.org/) experiments
 
 1. Install dependencies: `pip install -r requirements/analysis.txt`
 

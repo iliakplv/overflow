@@ -34,3 +34,9 @@ Data Science with Stack Overflow 2018 Developer Survey data
 2. Generate schema and preprocess the data by running `python data.py`
 
 3. Train and evaluate the model by running `python model.py`
+
+## To-do
+
+- Reframe the classification problem (current set of features don't seem to predict the current target)
+
+- Use TFDV for the data split (train/eval/test)

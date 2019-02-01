@@ -3,9 +3,12 @@ import tensorflow as tf
 
 import data
 
-model_dir = './model/'
-
 pandas_input_fn = False
+
+# classifier_type = 'linear'
+classifier_type = 'dnn'
+
+model_dir = './model_{}/'.format(classifier_type)
 
 batch_size = 32
 epochs = 1
@@ -50,6 +53,40 @@ def get_input_fn(df):
         return lambda: input_fn_dataset(df)
 
 
+def get_feature_columns():
+    feature_names = data.get_feature_names()
+    if classifier_type == 'linear':
+        return [
+            tf.feature_column.categorical_column_with_vocabulary_list(name, data.get_feature_values(name))
+            for name in feature_names
+        ]
+    elif classifier_type == 'dnn':
+        return [
+            tf.feature_column.indicator_column(
+                tf.feature_column.categorical_column_with_vocabulary_list(name, data.get_feature_values(name))
+            )
+            for name in feature_names
+        ]
+    raise Exception('Unsupported classifier type: {}'.format(classifier_type))
+
+
+def get_classifier():
+    if classifier_type == 'linear':
+        return tf.estimator.LinearClassifier(
+            feature_columns=get_feature_columns(),
+            model_dir=model_dir,
+            n_classes=len(data.get_target_values()),
+            label_vocabulary=data.get_target_values())
+    elif classifier_type == 'dnn':
+        return tf.estimator.DNNClassifier(
+            feature_columns=get_feature_columns(),
+            hidden_units=[10, 10],
+            n_classes=len(data.get_target_values()),
+            label_vocabulary=data.get_target_values(),
+            model_dir=model_dir)
+    raise Exception('Unsupported classifier type: {}'.format(classifier_type))
+
+
 def print_result(result):
     print('Evaluation result:')
     for k, v in result.items():
@@ -57,18 +94,9 @@ def print_result(result):
 
 
 def train_evaluate():
-    feature_names = data.get_feature_names()
-    feature_columns = [
-        tf.feature_column.categorical_column_with_vocabulary_list(name, data.get_feature_values(name))
-        for name in feature_names
-    ]
+    classifier = get_classifier()
 
-    classifier = tf.estimator.LinearClassifier(feature_columns=feature_columns,
-                                               model_dir=model_dir,
-                                               n_classes=len(data.get_target_values()),
-                                               label_vocabulary=data.get_target_values())
-
-    print('Training...')
+    print('Training ({})...'.format(classifier_type))
     train_start = time.time()
     classifier.train(get_input_fn(data.get_train_data()))
     train_end = time.time()

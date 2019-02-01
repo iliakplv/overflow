@@ -119,5 +119,5 @@ schema/schema-full.json
 # data
 data/
 
-# model
-model/
+# models
+model*

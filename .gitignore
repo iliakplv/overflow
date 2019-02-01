@@ -107,6 +107,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# VS Code
+.vscode
+
 # PyCharm
 .idea/
 

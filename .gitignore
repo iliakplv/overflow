@@ -120,4 +120,4 @@ schema/schema-full.json
 data/
 
 # models
-model*
+models/

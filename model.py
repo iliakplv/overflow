@@ -18,10 +18,6 @@ def param(name):
     return params[name]
 
 
-def set_param(name, value):
-    params[name] = value
-
-
 def input_fn_dataset(df):
     features = df[data.get_feature_names()]
     labels = df[data.get_target_name()]

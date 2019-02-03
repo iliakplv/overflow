@@ -19,6 +19,8 @@ Data Science with Stack Overflow 2018 Developer Survey data
 
 **Python 2.7** for [TFDV](https://github.com/tensorflow/data-validation) experiments
 
+Requires preprocessed data (see [Machine Learning](#machine-learning))
+
 1. Install dependencies: `pip install -r requirements/tfdv.txt`
 
 2. Run Jupyter notebook: `jupyter notebook`
@@ -38,7 +40,5 @@ Data Science with Stack Overflow 2018 Developer Survey data
 ## To-do
 
 - Reframe the classification problem (current set of features doesn't seem to predict current target)
-
-- Inspect current data split (train/eval/test) with TFDV
 
 - Make a training/evaluation demo (ipynb)

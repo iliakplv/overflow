@@ -40,5 +40,3 @@ Requires preprocessed data (see [Machine Learning](#machine-learning))
 ## To-do
 
 - Reframe the classification problem (current set of features doesn't seem to predict current target)
-
-- Make a training/evaluation demo (ipynb)

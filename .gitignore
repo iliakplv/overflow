@@ -121,3 +121,6 @@ data/
 
 # models
 models/
+
+# temporary stuff
+tmp*
